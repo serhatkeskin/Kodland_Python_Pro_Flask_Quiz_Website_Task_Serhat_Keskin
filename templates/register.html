@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br>
+<section class="bg-light">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+            <div class="col-12 col-lg-5">
+                <h2 class="display-4 lh-1 mb-4">Register</h2>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+                <p class="lead fw-normal text-muted mb-5 mb-lg-0">Please register to system.</p>
+                <form method="POST" action="{{ url_for('register') }}">
+                    {{ form.csrf_token }}
+                    <div>
+                        <label for="username">Username:</label>
+                        {{ form.username }}
+                    </div>
+                    <div>
+                        <label for="password">Password:</label>
+                        {{ form.password }}
+                    </div>
+                    <div>
+                        <label for="confirm_password">Confirm Password:</label>
+                        {{ form.confirm_password }}
+                    </div>
+                    <div>
+                        <label for="nickname">Nickname:</label>
+                        {{ form.nickname }}
+                    </div>
+                    <div>
+                        <input type="submit" value="Register">
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-8 col-md-6">
+                <div class="px-5 px-sm-0"><img class="img-fluid rounded-circle" src="https://source.unsplash.com/u8Jn2rzYIps/900x900" alt="..." /></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

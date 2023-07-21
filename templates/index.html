@@ -1,0 +1,45 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br>
+<section class="bg-light">
+
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+            <div class="col-12 col-lg-5">
+                <h1 class="display-4 lh-1 mb-4">Welcome to the Homepage of Quiz Website!</h1>
+                <p class="lead fw-normal text-muted mb-5 mb-lg-0">Weather Forecast for {{ city_name }}</p>
+
+                <body>
+                    <ul>
+                        {% for data in weather_data %}
+                        <li>
+                            <strong>{{ data['day'] }} ({{ data['date'] }})</strong><br>
+                            Day: {{ data['day_temp'] }}°C, Night: {{ data['night_temp'] }}°C<br>
+                            {{ data['description'] }}<br>
+                            <img src="http://openweathermap.org/img/w/{{ data['icon'] }}.png">
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </body>
+                <br>
+                <form method="GET">
+                    <label for="city">Enter City Name:</label>
+                    <input type="text" name="city" id="city" value="{{ request.args.get('city', 'Istanbul') }}" required>
+                    <button type="submit">Get Weather Forecast</button>
+                </form>
+                <br><br>
+            </div>
+
+            <div class="col-sm-8 col-md-6">
+                <div class="px-5 px-sm-0"><img class="img-fluid rounded-circle" src="{{ url_for('static', filename='assets/img/weather.avif') }}" alt="..." /></div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+    
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br><br>
+<div class="container px-5">
+    <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+        <div class="col-12 col-lg-5">
+            <h1 class="display-4 lh-1 mb-4">Quiz</h1>
+            <p class="lead fw-normal text-muted mb-5 mb-lg-0">Total Score: {{ total_score }}</p>
+            <p class="lead fw-normal text-muted mb-5 mb-lg-0">Answer a randomly selected question.</p>
+            <br><br>
+            <div id="quiz-container">
+                <form method="POST" action="{{ url_for('submit_quiz') }}" id="quiz-form">
+                    {{ form.csrf_token }}
+                    
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% if not question %}
+                        <p>Sorry, no questions available at the moment.</p>
+                    {% else %}
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                        <div class="question">
+                            <p>{{ question['question_text'] }}</p>
+                            <input type="radio" name="question" value="{{ question['option1'] }}"> {{ question['option1'] }}<br>
+                            <input type="radio" name="question" value="{{ question['option2'] }}"> {{ question['option2'] }}<br>
+                            <input type="radio" name="question" value="{{ question['option3'] }}"> {{ question['option3'] }}<br>
+                            <input type="radio" name="question" value="{{ question['option4'] }}"> {{ question['option4'] }}<br>
+                        </div>
+                        <br>
+                        <div id="nav-buttons">
+                            <button type="submit" id="next-btn">Submit</button>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+
+      
+        </div>
+
+        <div class="col-sm-8 col-md-6">
+            <div class="px-5 px-sm-0"><img class="img-fluid rounded-circle" src="{{ url_for('static', filename='assets/img/quiz.jpg') }}" alt="..." /></div>
+        </div>
+    </div>
+</div>
+
+
+ 
+
+{% endblock %}
